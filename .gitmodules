@@ -13,3 +13,6 @@
 [submodule "pack/gitgutter/start/vim-gitgutter"]
 	path = pack/gitgutter/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "pack/fsharp/start/Ionide-vim"]
+	path = pack/fsharp/start/Ionide-vim
+	url = https://github.com/ionide/Ionide-vim.git
