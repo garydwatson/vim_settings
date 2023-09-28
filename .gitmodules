@@ -7,3 +7,6 @@
 [submodule "pack/lsp-config/start/nvim-lspconfig"]
 	path = pack/lsp-config/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
+[submodule "pack/nvim-treesitter/start/nvim-treesitter"]
+	path = pack/nvim-treesitter/start/nvim-treesitter
+	url = https://github.com/uguu-org/vim-matrix-screensaver.git
