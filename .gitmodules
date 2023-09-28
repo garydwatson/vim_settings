@@ -10,3 +10,6 @@
 [submodule "pack/lsp-command/start/lsp-command"]
 	path = pack/lsp-command/start/lsp-command
 	url = https://github.com/ii14/lsp-command.git
+[submodule "pack/gitgutter/start/vim-gitgutter"]
+	path = pack/gitgutter/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
