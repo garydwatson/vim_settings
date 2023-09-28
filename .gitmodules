@@ -1,9 +1,6 @@
 [submodule "pack/matrix/start/vim-matrix-screensaver"]
 	path = pack/matrix/start/vim-matrix-screensaver
 	url = https://github.com/uguu-org/vim-matrix-screensaver.git
-[submodule "nvim-treesitter/start"]
-	path = pack/nvim-treesitter/start/nvim-treesitter
-	url = https://github.com/uguu-org/vim-matrix-screensaver.git
 [submodule "pack/lsp-config/start/nvim-lspconfig"]
 	path = pack/lsp-config/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
