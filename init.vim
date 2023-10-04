@@ -193,6 +193,7 @@ nnoremap <Leader>p :cp<CR>
 nnoremap ]p :lpre<CR>
 nnoremap <Leader>b :%!git blame %<CR>
 set wildignore+=target/**,**/target/**,bin/**,**/bin/**,obj/**,**/obj/**,rocksdb/**,**/rocksdb/**
+let g:terminal_color_4 = 'lightblue'
 
 
 "autocmd BufWinLeave *.* mkview!
