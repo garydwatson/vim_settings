@@ -195,10 +195,10 @@ nnoremap <Leader>b :%!git blame %<CR>
 set wildignore+=target/**,**/target/**,bin/**,**/bin/**,obj/**,**/obj/**,rocksdb/**,**/rocksdb/**
 "nnoremap <S-ScrollWheelUp> <ScrollWheelLeft>
 "nnoremap <S-ScrollWheelDown> <ScrollWheelRight>
-:map <S-ScrollWheelUp> zH
-:map <S-ScrollWheelDown> zL
-:map <C-ScrollWheelUp> <C-u>
-:map <C-ScrollWheelDown> <C-d> 
+:nnoremap <S-ScrollWheelUp> zH
+:nnoremap <S-ScrollWheelDown> zL
+:nnoremap <C-ScrollWheelUp> <C-u>
+:nnoremap <C-ScrollWheelDown> <C-d> 
 
 "autocmd BufWinLeave *.* mkview!
 "autocmd BufWinEnter *.* silent loadview
