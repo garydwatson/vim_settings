@@ -193,6 +193,8 @@ nnoremap <Leader>p :cp<CR>
 nnoremap ]p :lpre<CR>
 nnoremap <Leader>b :%!git blame %<CR>
 set wildignore+=target/**,**/target/**,bin/**,**/bin/**,obj/**,**/obj/**,rocksdb/**,**/rocksdb/**
+:map <S-ScrollWheelUp> zH
+:map <S-ScrollWheelDown> zL
 
 
 "autocmd BufWinLeave *.* mkview!
