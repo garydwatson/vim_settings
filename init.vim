@@ -19,7 +19,7 @@ set number
 "colorscheme murphy
 "colorscheme slate
 "colorscheme fu
-"colorscheme jellybeans
+colorscheme jellybeans
 "colorscheme mustang
 "colorscheme sorcerer
 "colorscheme synic
@@ -27,7 +27,7 @@ set number
 "colorscheme xoria256
 "colorscheme wombat256mod
 "colorscheme lunaperche
-colorscheme tokyonight-night
+"colorscheme tokyonight-night
 set guioptions+=b
 set tags+=tags;
 set showtabline=2
