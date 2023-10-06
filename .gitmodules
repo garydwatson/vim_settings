@@ -31,3 +31,6 @@
 [submodule "pack/tabular/start/tabular"]
 	path = pack/tabular/start/tabular
 	url = https://github.com/godlygeek/tabular.git
+[submodule "pack/telescope-repo/start/telescope-repo.nvim"]
+	path = pack/telescope-repo/start/telescope-repo.nvim
+	url = https://github.com/cljoly/telescope-repo.nvim.git

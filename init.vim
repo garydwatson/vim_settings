@@ -36,11 +36,12 @@ nnoremap <Leader>b :%!git blame %<CR>
 set wildignore+=target/**,**/target/**,bin/**,**/bin/**,obj/**,**/obj/**,rocksdb/**,**/rocksdb/**
 "nnoremap <S-ScrollWheelUp> <ScrollWheelLeft>
 "nnoremap <S-ScrollWheelDown> <ScrollWheelRight>
-nnoremap <leader>t :Telescope<CR>
+nnoremap <leader>t :Telescope builtin include_extensions=true<CR>
 :nnoremap <S-ScrollWheelUp> zH
 :nnoremap <S-ScrollWheelDown> zL
 :nnoremap <C-ScrollWheelUp> <C-u>
 :nnoremap <C-ScrollWheelDown> <C-d> 
+:nnoremap <Leader>e :Le<CR>
 
 "autocmd BufWinLeave *.* mkview!
 "autocmd BufWinEnter *.* silent loadview
@@ -64,6 +65,23 @@ lua << EOF
 --require'lspconfig'.fsharp_language_server.setup{}
 
 require('gitsigns').setup()
+
+require("telescope").setup {
+  extensions = {
+    repo = {
+      list = {
+        fd_opts = {
+          "--no-ignore-vcs",
+        },
+        search_dirs = {
+          "~",
+        },
+      },
+    },
+  },
+}
+
+require("telescope").load_extension "repo"
 
 local lspconfig = require('lspconfig')
 lspconfig.pyright.setup {}
