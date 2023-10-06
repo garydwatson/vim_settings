@@ -10,9 +10,6 @@
 [submodule "pack/lsp-command/start/lsp-command"]
 	path = pack/lsp-command/start/lsp-command
 	url = https://github.com/ii14/lsp-command.git
-[submodule "pack/gitgutter/start/vim-gitgutter"]
-	path = pack/gitgutter/start/vim-gitgutter
-	url = https://github.com/airblade/vim-gitgutter.git
 [submodule "pack/fsharp/start/Ionide-vim"]
 	path = pack/fsharp/start/Ionide-vim
 	url = https://github.com/ionide/Ionide-vim.git
@@ -25,3 +22,6 @@
 [submodule "pack/plenary/start/plenary.nvim"]
 	path = pack/plenary/start/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim.git
+[submodule "pack/gitsigns/start/gitsigns.nvim"]
+	path = pack/gitsigns/start/gitsigns.nvim
+	url = https://github.com/lewis6991/gitsigns.nvim.git

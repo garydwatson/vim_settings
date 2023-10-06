@@ -222,6 +222,8 @@ lua << EOF
 
 --require'lspconfig'.fsharp_language_server.setup{}
 
+require('gitsigns').setup()
+
 local lspconfig = require('lspconfig')
 lspconfig.pyright.setup {}
 lspconfig.tsserver.setup {}
