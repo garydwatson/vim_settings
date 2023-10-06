@@ -180,6 +180,14 @@ set number
 "colorscheme slate
 "colorscheme fu
 colorscheme jellybeans
+"colorscheme mustang
+"colorscheme sorcerer
+"colorscheme synic
+"colorscheme tir_black
+"colorscheme xoria256
+"colorscheme wombat256mod
+"colorscheme lunaperche
+
 set guioptions+=b
 set tags+=tags;
 set showtabline=2
@@ -202,6 +210,9 @@ set wildignore+=target/**,**/target/**,bin/**,**/bin/**,obj/**,**/obj/**,rocksdb
 
 "autocmd BufWinLeave *.* mkview!
 "autocmd BufWinEnter *.* silent loadview
+
+"autocmd WinEnter * setlocal cursorline
+"autocmd WinLeave * setlocal nocursorline
 
 
 
@@ -230,6 +241,9 @@ lspconfig.rust_analyzer.setup {
     ['rust-analyzer'] = {},
   },
 }
+
+lspconfig.bufls.setup {}
+
 lspconfig.omnisharp.setup {
     cmd = { "dotnet", "/home/gary/.config/nvim/omnisharp/OmniSharp.dll" },
 
