@@ -28,3 +28,6 @@
 [submodule "pack/tokyonight/start/tokyonight.nvim"]
 	path = pack/tokyonight/start/tokyonight.nvim
 	url = https://github.com/folke/tokyonight.nvim.git
+[submodule "pack/tabular/start/tabular"]
+	path = pack/tabular/start/tabular
+	url = https://github.com/godlygeek/tabular.git
