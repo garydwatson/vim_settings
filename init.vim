@@ -199,6 +199,7 @@ set wildignore+=target/**,**/target/**,bin/**,**/bin/**,obj/**,**/obj/**,rocksdb
 :map <S-ScrollWheelDown> zL
 :map <C-ScrollWheelUp> <C-u>
 :map <C-ScrollWheelDown> <C-d> 
+nnoremap <leader>f :Telescope<CR>
 
 "autocmd BufWinLeave *.* mkview!
 "autocmd BufWinEnter *.* silent loadview

@@ -19,3 +19,9 @@
 [submodule "pack/vim-dirdiff/start/vim-dirdiff"]
 	path = pack/vim-dirdiff/start/vim-dirdiff
 	url = https://github.com/will133/vim-dirdiff.git
+[submodule "pack/telescope/start/telescope.nvim"]
+	path = pack/telescope/start/telescope.nvim
+	url = https://github.com/nvim-telescope/telescope.nvim.git
+[submodule "pack/plenary/start/plenary.nvim"]
+	path = pack/plenary/start/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim.git
