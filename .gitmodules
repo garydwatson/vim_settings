@@ -25,3 +25,6 @@
 [submodule "pack/gitsigns/start/gitsigns.nvim"]
 	path = pack/gitsigns/start/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim.git
+[submodule "pack/tokyonight/start/tokyonight.nvim"]
+	path = pack/tokyonight/start/tokyonight.nvim
+	url = https://github.com/folke/tokyonight.nvim.git

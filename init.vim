@@ -179,7 +179,8 @@ set number
 "colorscheme murphy
 "colorscheme slate
 "colorscheme fu
-colorscheme jellybeans
+"colorscheme jellybeans
+colorscheme tokyonight-night
 set guioptions+=b
 set tags+=tags;
 set showtabline=2
