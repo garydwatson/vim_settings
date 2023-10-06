@@ -36,7 +36,7 @@ nnoremap <Leader>b :%!git blame %<CR>
 set wildignore+=target/**,**/target/**,bin/**,**/bin/**,obj/**,**/obj/**,rocksdb/**,**/rocksdb/**
 "nnoremap <S-ScrollWheelUp> <ScrollWheelLeft>
 "nnoremap <S-ScrollWheelDown> <ScrollWheelRight>
-nnoremap <leader>f :Telescope<CR>
+nnoremap <leader>t :Telescope<CR>
 :nnoremap <S-ScrollWheelUp> zH
 :nnoremap <S-ScrollWheelDown> zL
 :nnoremap <C-ScrollWheelUp> <C-u>
