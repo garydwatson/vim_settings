@@ -40,7 +40,7 @@ nnoremap ]n :lne<CR>
 nnoremap <Leader>p :cp<CR>
 nnoremap ]p :lpre<CR>
 nnoremap <Leader>b :%!git blame %<CR>
-set wildignore+=target/**,**/target/**,bin/**,**/bin/**,obj/**,**/obj/**,rocksdb/**,**/rocksdb/**
+set wildignore+=**/target,**/bin,**/obj,**/rocksdb,**/.git
 "nnoremap <S-ScrollWheelUp> <ScrollWheelLeft>
 "nnoremap <S-ScrollWheelDown> <ScrollWheelRight>
 nnoremap <leader>t :Telescope builtin include_extensions=true<CR>
@@ -59,11 +59,12 @@ nnoremap <leader>t :Telescope builtin include_extensions=true<CR>
 
 
 if exists("g:neovide")
-    let g:neovide_transparency = 0.8
-    let g:transparency = 0.8
-    let g:neovide_background_color = '#0f1117'.printf('%x', float2nr(255 * g:transparency))
+"    let g:neovide_transparency = 0.8
+"    let g:transparency = 0.8
+"    let g:neovide_background_color = '#0f1117'.printf('%x', float2nr(255 * g:transparency))
     let g:terminal_color_4 = 'lightblue'
     let g:neovide_cursor_trail_size = 0.1
+    set guifont=Hack:h10
 endif
 
 
