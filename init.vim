@@ -40,7 +40,7 @@ nnoremap ]n :lne<CR>
 nnoremap <Leader>p :cp<CR>
 nnoremap ]p :lpre<CR>
 nnoremap <Leader>b :%!git blame %<CR>
-set wildignore+=**/target,**/bin,**/obj,**/rocksdb,**/.git
+set wildignore+=**/target/**,**/bin/**,**/obj/**,**/rocksdb/**,**/.git/**,**/*.dll,**/*.so,**/*.pdb
 "nnoremap <S-ScrollWheelUp> <ScrollWheelLeft>
 "nnoremap <S-ScrollWheelDown> <ScrollWheelRight>
 nnoremap <leader>t :Telescope builtin include_extensions=true<CR>
