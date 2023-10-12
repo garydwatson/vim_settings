@@ -188,11 +188,21 @@ nnoremap ]n :lne<CR>
 nnoremap <Leader>p :cp<CR>
 nnoremap ]p :lpre<CR>
 nnoremap <Leader>b :%!git blame %<CR>
+set wildignore+=**/target,**/bin,**/obj,**/rocksdb,**/.git
+"nnoremap <S-ScrollWheelUp> <ScrollWheelLeft>
+"nnoremap <S-ScrollWheelDown> <ScrollWheelRight>
+:nnoremap <S-ScrollWheelUp> zH
+:nnoremap <S-ScrollWheelDown> zL
+:nnoremap <C-ScrollWheelUp> <C-u>
+:nnoremap <C-ScrollWheelDown> <C-d> 
+:nnoremap <leader>e :Le<CR>
 
 
 "autocmd BufWinLeave *.* mkview!
 "autocmd BufWinEnter *.* silent loadview
 
+"autocmd WinEnter * setlocal cursorline
+"autocmd WinLeave * setlocal nocursorline
 
 "packadd vim-lsp
 """"" this is the vim-lsp stuff
