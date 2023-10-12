@@ -1,3 +1,12 @@
+lua << EOF
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+vim.opt.termguicolors = true
+
+require("nvim-tree").setup()
+EOF
+
 packloadall
 
 TSEnable highlight
@@ -48,7 +57,9 @@ nnoremap <leader>t :Telescope builtin include_extensions=true<CR>
 :nnoremap <S-ScrollWheelDown> zL
 :nnoremap <C-ScrollWheelUp> <C-u>
 :nnoremap <C-ScrollWheelDown> <C-d> 
-:nnoremap <Leader>e :Le<CR>
+:nnoremap <leader>e :NvimTreeToggle<CR>
+:NvimTreeResize 50
+
 
 "autocmd BufWinLeave *.* mkview!
 "autocmd BufWinEnter *.* silent loadview
