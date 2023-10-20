@@ -158,7 +158,7 @@ if has('langmap') && exists('+langremap')
   set nolangremap
 endif
 
-"packloadall
+packloadall
 
 set wildoptions=pum
 set hlsearch
@@ -176,6 +176,14 @@ set number
 "colorscheme slate
 "colorscheme fu
 colorscheme jellybeans
+"colorscheme mustang
+"colorscheme sorcerer
+"colorscheme synic
+"colorscheme tir_black
+"colorscheme xoria256
+"colorscheme wombat256mod
+"colorscheme lunaperche
+"colorscheme tokyonight-night
 set guioptions+=b
 set tags+=tags;
 set showtabline=2
@@ -188,7 +196,7 @@ nnoremap ]n :lne<CR>
 nnoremap <Leader>p :cp<CR>
 nnoremap ]p :lpre<CR>
 nnoremap <Leader>b :%!git blame %<CR>
-set wildignore+=**/target,**/bin,**/obj,**/rocksdb,**/.git
+set wildignore+=**/target/**,**/bin/**,**/obj/**,**/rocksdb/**,**/.git/**,**/*.dll,**/*.so,**/*.pdb
 "nnoremap <S-ScrollWheelUp> <ScrollWheelLeft>
 "nnoremap <S-ScrollWheelDown> <ScrollWheelRight>
 :nnoremap <S-ScrollWheelUp> zH
