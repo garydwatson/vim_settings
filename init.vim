@@ -61,6 +61,11 @@ nnoremap <leader>t :Telescope builtin include_extensions=true<CR>
 :nnoremap <leader>e :NvimTreeToggle<CR>
 :NvimTreeResize 50
 
+menu PopUp.Hover K
+menu PopUp.Goto\ References gr
+menu PopUp.Goto\ Type\ Definition <leader>gt
+
+unmenu PopUp.How-to\ disable\ mouse
 
 "autocmd BufWinLeave *.* mkview!
 "autocmd BufWinEnter *.* silent loadview
