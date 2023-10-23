@@ -40,3 +40,6 @@
 [submodule "pack/nvim-tree/start/nvim-tree.lua"]
 	path = pack/nvim-tree/start/nvim-tree.lua
 	url = https://github.com/nvim-tree/nvim-tree.lua.git
+[submodule "pack/codeium/start/codeium.vim"]
+	path = pack/codeium/start/codeium.vim
+	url = https://github.com/Exafunction/codeium.vim.git
