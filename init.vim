@@ -14,7 +14,7 @@ TSEnable incremental_selection
 TSEnable indent
 
 set scrollback=100000
-set wildoptions=pum
+set wildoptions+=pum
 set hlsearch
 "let g:netrw_liststyle=3
 set nobackup
