@@ -15,6 +15,7 @@ TSEnable indent
 
 set scrollback=100000
 set wildoptions+=pum
+set foldcolumn=1
 set hlsearch
 "let g:netrw_liststyle=3
 set nobackup
