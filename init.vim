@@ -1,11 +1,11 @@
-lua << EOF
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
-vim.opt.termguicolors = true
-
-require("nvim-tree").setup()
-EOF
+"lua << EOF
+"vim.g.loaded_netrw = 1
+"vim.g.loaded_netrwPlugin = 1
+"
+"vim.opt.termguicolors = true
+"
+"require("nvim-tree").setup()
+"EOF
 
 packloadall
 
@@ -59,8 +59,8 @@ nnoremap <leader>t :Telescope builtin include_extensions=true<CR>
 :nnoremap <S-ScrollWheelDown> zL
 :nnoremap <C-ScrollWheelUp> <C-u>
 :nnoremap <C-ScrollWheelDown> <C-d> 
-:nnoremap <leader>e :NvimTreeToggle<CR>
-:NvimTreeResize 50
+":nnoremap <leader>e :NvimTreeToggle<CR>
+":NvimTreeResize 50
 
 menu PopUp.Hover K
 menu PopUp.Goto\ References gr
