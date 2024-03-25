@@ -61,6 +61,8 @@ nnoremap <leader>t :Telescope builtin include_extensions=true<CR>
 :nnoremap <C-ScrollWheelDown> <C-d> 
 ":nnoremap <leader>e :NvimTreeToggle<CR>
 ":NvimTreeResize 50
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+
 
 menu PopUp.Hover K
 menu PopUp.Goto\ References gr
