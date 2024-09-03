@@ -1,36 +1,18 @@
-"lua << EOF
-"vim.g.loaded_netrw = 1
-"vim.g.loaded_netrwPlugin = 1
-"
-"vim.opt.termguicolors = true
-"
-"require("nvim-tree").setup()
-"EOF
-
 packloadall
 
-TSEnable highlight
-TSEnable incremental_selection
-TSEnable indent
-
 set scrollback=100000
-set wildoptions+=pum
 set foldcolumn=1
-set hlsearch
-"let g:netrw_liststyle=3
-set nobackup
-set expandtab
-set tabstop=4
-set shiftwidth=4
-set laststatus=2
 set diffopt+=iwhite
-set nowrap
 set number
+set nowrap
+set shiftwidth=4
+set tabstop=4
+set expandtab
 "colorscheme torte
 "colorscheme murphy
 "colorscheme slate
 "colorscheme fu
-colorscheme jellybeans
+"colorscheme jellybeans
 "colorscheme mustang
 "colorscheme sorcerer
 "colorscheme synic
@@ -38,20 +20,21 @@ colorscheme jellybeans
 "colorscheme xoria256
 "colorscheme wombat256mod
 "colorscheme lunaperche
+colorscheme habamax
 "colorscheme tokyonight-night
-set guioptions+=b
-set tags+=tags;
 set showtabline=2
 "set undofile
-"set undodir=~/tmp
-set dir=~/tmp
-"set textwidth=120
+
+set wildignore+=**/node_modules/**,**/target/**,**/bin/**,**/obj/**,**/rocksdb/**,**/.git/**,**/*.dll,**/*.so,**/*.pdb,**/packages/**
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+
+":NvimTreeResize 50
+
 nnoremap <Leader>n :cn<CR>
 nnoremap ]n :lne<CR>
 nnoremap <Leader>p :cp<CR>
 nnoremap ]p :lpre<CR>
 nnoremap <Leader>b :%!git blame %<CR>
-set wildignore+=**/target/**,**/bin/**,**/obj/**,**/rocksdb/**,**/.git/**,**/*.dll,**/*.so,**/*.pdb
 "nnoremap <S-ScrollWheelUp> <ScrollWheelLeft>
 "nnoremap <S-ScrollWheelDown> <ScrollWheelRight>
 nnoremap <leader>t :Telescope builtin include_extensions=true<CR>
@@ -60,14 +43,10 @@ nnoremap <leader>t :Telescope builtin include_extensions=true<CR>
 :nnoremap <C-ScrollWheelUp> <C-u>
 :nnoremap <C-ScrollWheelDown> <C-d> 
 ":nnoremap <leader>e :NvimTreeToggle<CR>
-":NvimTreeResize 50
-set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
-
 
 menu PopUp.Hover K
-menu PopUp.Goto\ References gr
-menu PopUp.Goto\ Type\ Definition <leader>gt
-
+menu PopUp.Goto\ References :lua vim.lsp.buf.references()<CR>
+menu PopUp.Goto\ Type\ Definition <C-]>
 unmenu PopUp.How-to\ disable\ mouse
 
 "autocmd BufWinLeave *.* mkview!
@@ -76,131 +55,154 @@ unmenu PopUp.How-to\ disable\ mouse
 "autocmd WinEnter * setlocal cursorline
 "autocmd WinLeave * setlocal nocursorline
 
-
-
 if exists("g:neovide")
-"    let g:neovide_transparency = 0.8
-"    let g:transparency = 0.8
+    let g:neovide_transparency = 0.98
+    let g:transparency = 0.98
 "    let g:neovide_background_color = '#0f1117'.printf('%x', float2nr(255 * g:transparency))
     let g:terminal_color_4 = 'lightblue'
-    let g:neovide_cursor_trail_size = 0.1
-    set guifont=Hack:h10
+"    set guifont=Hack:h10
+    let g:neovide_position_animation_length = 0
+    let g:neovide_cursor_animation_length = 0.00
+    let g:neovide_cursor_trail_size = 0
+    let g:neovide_cursor_animate_in_insert_mode = 0
+    let g:neovide_cursor_animate_command_line = 0
+    let g:neovide_scroll_animation_far_lines = 0
+    let g:neovide_scroll_animation_length = 0.00
+    let g:neovide_scale_factor = 0.7
 endif
 
-
-
-
 lua << EOF
--- Setup language servers.
 
---require'lspconfig'.fsharp_language_server.setup{}
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
+end
+vim.opt.rtp:prepend(lazypath)
 
-require('gitsigns').setup()
+-- Make sure to setup `mapleader` and `maplocalleader` before
+-- loading lazy.nvim so that mappings are correct.
+-- This is also a good place to setup other settings (vim.opt)
+--vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
-require("telescope").setup {
-  extensions = {
-    repo = {
-      list = {
-        fd_opts = {
-          "--no-ignore-vcs",
-        },
-        search_dirs = {
-          "~",
-        },
-      },
-    },
+-- Setup lazy.nvim
+require("lazy").setup({
+  spec = {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+    "ii14/lsp-command",
+    "nvim-treesitter/nvim-treesitter",
+    "lewis6991/gitsigns.nvim",
+    -- "ionide/Ionide-vim",
+    "will133/vim-dirdiff",
+    "uguu-org/vim-matrix-screensaver",
+    "folke/tokyonight.nvim",
+    "folke/which-key.nvim",
+    "David-Kunz/gen.nvim",
+    "nvim-lua/plenary.nvim",
+    -- "magicalne/nvim.ai",
   },
+  -- Configure any other settings here. See the documentation for more details.
+  -- colorscheme that will be used when installing plugins.
+  install = { colorscheme = { "habamax" } },
+  -- automatically check for plugin updates
+  checker = { enabled = false },
+})
+
+-- require('ai').setup({
+--   provider = "ollama",
+--   ollama = {
+--     model = "llama3.1:8b-instruct-q8_0", -- You can start with smaller one like `gemma2` or `llama3.1`
+--     --endpoint = "http://192.168.2.47:11434", -- In case you access ollama from another machine
+--   }
+-- })
+
+require('gen').setup({
+--    opts = {
+        model = "llama3.1:8b-instruct-q8_0", -- The default model to use.
+        quit_map = "q", -- set keymap for close the response window
+        retry_map = "<c-r>", -- set keymap to re-send the current prompt
+        accept_map = "<c-cr>", -- set keymap to replace the previous selection with the last result
+        host = "localhost", -- The host running the Ollama service.
+        port = "11434", -- The port on which the Ollama service is listening.
+        display_mode = "horizontal-split", -- The display mode. Can be "float" or "split" or "horizontal-split".
+        show_prompt = false, -- Shows the prompt submitted to Ollama.
+        show_model = false, -- Displays which model you are using at the beginning of your chat session.
+        no_auto_close = false, -- Never closes the window automatically.
+        hidden = false, -- Hide the generation window (if true, will implicitly set `prompt.replace = true`), requires Neovim >= 0.10
+        init = function(options) pcall(io.popen, "ollama serve > /dev/null 2>&1 &") end,
+        -- Function to initialize Ollama
+        command = function(options)
+            local body = {model = options.model, stream = true}
+            return "curl --silent --no-buffer -X POST http://" .. options.host .. ":" .. options.port .. "/api/chat -d $body"
+        end,
+        -- The command for the Ollama service. You can use placeholders $prompt, $model and $body (shellescaped).
+        -- This can also be a command string.
+        -- The executed command must return a JSON object with { response, context }
+        -- (context property is optional).
+        -- list_models = '<omitted lua function>', -- Retrieves a list of model names
+        debug = false -- Prints errors and the command which is run.
+--    }
+})
+
+vim.keymap.set({ 'n', 'v' }, '<leader>]', ':Gen<CR>')
+
+require("mason").setup()
+require("mason-lspconfig").setup()
+require'lspconfig'.omnisharp.setup{}
+require'lspconfig'.jdtls.setup{}
+--require'lspconfig'.jdtls.setup{ 
+----    cmd = { "java", "-javaagent:$HOME/.local/share/nvim/mason/share/jdtls/lombok.jar" },
+--    init_options = {
+--        jvm_args = { "-javaagent:$HOME/.local/share/nvim/mason/share/jdtls/lombok.jar" },
+--        workspace = "/home/user/.cache/jdtls/workspace",
+--    },
+--}
+require'lspconfig'.fsharp_language_server.setup{}
+require('gitsigns').setup()
+require('lspconfig').pyright.setup {}
+require('lspconfig').gleam.setup {}
+require('lspconfig').tsserver.setup {
+  -- settings = {
+  --   typescript = {
+  --     preferences = {
+  --       importModuleSpecifier = "relative"
+  --     },
+  --   },
+  -- },
+  -- init_options = {
+  --   preferences = {
+  --     importModuleSpecifierPreference = 'non-relative',
+  --   },
+  -- },
 }
-
-require("telescope").load_extension "repo"
-
-local lspconfig = require('lspconfig')
-lspconfig.pyright.setup {}
-lspconfig.tsserver.setup {}
-lspconfig.rust_analyzer.setup {
-  -- Server-specific settings. See `:help lspconfig-setup`
+require('lspconfig').rust_analyzer.setup {
   settings = {
     ['rust-analyzer'] = {},
   },
 }
-
-lspconfig.bufls.setup {}
-
-lspconfig.omnisharp.setup {
-    cmd = { "dotnet", "/home/gary/.config/nvim/omnisharp/OmniSharp.dll" },
-
-    -- Enables support for reading code style, naming convention and analyzer
-    -- settings from .editorconfig.
-    enable_editorconfig_support = true,
-
-    -- If true, MSBuild project system will only load projects for files that
-    -- were opened in the editor. This setting is useful for big C# codebases
-    -- and allows for faster initialization of code navigation features only
-    -- for projects that are relevant to code that is being edited. With this
-    -- setting enabled OmniSharp may load fewer projects and may thus display
-    -- incomplete reference lists for symbols.
-    enable_ms_build_load_projects_on_demand = false,
-
-    -- Enables support for roslyn analyzers, code fixes and rulesets.
-    enable_roslyn_analyzers = false,
-
-    -- Specifies whether 'using' directives should be grouped and sorted during
-    -- document formatting.
-    organize_imports_on_format = false,
-
-    -- Enables support for showing unimported types and unimported extension
-    -- methods in completion lists. When committed, the appropriate using
-    -- directive will be added at the top of the current file. This option can
-    -- have a negative impact on initial completion responsiveness,
-    -- particularly for the first few completion sessions after opening a
-    -- solution.
-    enable_import_completion = false,
-
-    -- Specifies whether to include preview versions of the .NET SDK when
-    -- determining which version to use for project loading.
-    sdk_include_prereleases = true,
-
-    -- Only run analyzers against open files when 'enableRoslynAnalyzers' is
-    -- true
-    analyze_open_documents_only = false,
-}
+require('lspconfig').bufls.setup {}
+--require'lspconfig'.ruby_lsp.setup{}
+--require'lspconfig'.sorbet.setup{}
+require'lspconfig'.html.setup{}
 
 
--- Global mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+vim.lsp.inlay_hint.enable()
 
--- Use LspAttach autocommand to only map the following keys
--- after the language server attaches to the current buffer
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-  callback = function(ev)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
---    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
---    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
---    vim.keymap.set('n', '<space>wl', function()
---      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
---    end, opts)
-    vim.keymap.set('n', '<leader>gt', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<leader>f', function()
-      vim.lsp.buf.format { async = true }
-    end, opts)
-  end,
-})
 EOF
+
+TSEnable highlight
+TSEnable incremental_selection
+TSEnable indent
