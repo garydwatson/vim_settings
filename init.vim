@@ -1,12 +1,15 @@
 packloadall
 
+let g:clipboard = "osc52"
 set scrollback=100000
 set foldcolumn=1
+set signcolumn=auto:2
 set diffopt+=iwhite
+set diffopt+=iwhiteall
 set number
 set nowrap
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 set expandtab
 "colorscheme torte
 "colorscheme murphy
@@ -19,14 +22,16 @@ set expandtab
 "colorscheme tir_black
 "colorscheme xoria256
 "colorscheme wombat256mod
-"colorscheme lunaperche
-colorscheme habamax
-"colorscheme tokyonight-night
+"colorscheme habamax
 set showtabline=2
 "set undofile
+set diffopt+=algorithm:histogram
+
 
 set wildignore+=**/node_modules/**,**/target/**,**/bin/**,**/obj/**,**/rocksdb/**,**/.git/**,**/*.dll,**/*.so,**/*.pdb,**/packages/**
-set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+let g:DirDiffExcludes = ".git,node_modules,.next"
+"set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+set grepprg=rg\ --vimgrep\ --smart-case
 
 ":NvimTreeResize 50
 
@@ -56,11 +61,13 @@ unmenu PopUp.How-to\ disable\ mouse
 "autocmd WinLeave * setlocal nocursorline
 
 if exists("g:neovide")
-    let g:neovide_transparency = 0.98
-    let g:transparency = 0.98
+    :cd
+    let g:neovide_transparency = 1.00
+    let g:transparency = 1.00
 "    let g:neovide_background_color = '#0f1117'.printf('%x', float2nr(255 * g:transparency))
-    let g:terminal_color_4 = 'lightblue'
+"    let g:terminal_color_4 = 'lightblue'
 "    set guifont=Hack:h10
+    set guifont=Menlo
     let g:neovide_position_animation_length = 0
     let g:neovide_cursor_animation_length = 0.00
     let g:neovide_cursor_trail_size = 0
@@ -68,7 +75,7 @@ if exists("g:neovide")
     let g:neovide_cursor_animate_command_line = 0
     let g:neovide_scroll_animation_far_lines = 0
     let g:neovide_scroll_animation_length = 0.00
-    let g:neovide_scale_factor = 0.7
+    let g:neovide_scale_factor = 1
 endif
 
 lua << EOF
@@ -94,7 +101,7 @@ vim.opt.rtp:prepend(lazypath)
 -- loading lazy.nvim so that mappings are correct.
 -- This is also a good place to setup other settings (vim.opt)
 --vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+--vim.g.maplocalleader = "\\"
 
 -- Setup lazy.nvim
 require("lazy").setup({
@@ -109,10 +116,26 @@ require("lazy").setup({
     "will133/vim-dirdiff",
     "uguu-org/vim-matrix-screensaver",
     "folke/tokyonight.nvim",
-    "folke/which-key.nvim",
+--    "folke/which-key.nvim",
     "David-Kunz/gen.nvim",
     "nvim-lua/plenary.nvim",
-    -- "magicalne/nvim.ai",
+    "godlygeek/tabular",
+    "stevearc/oil.nvim",
+    {
+      "m00qek/baleia.nvim",
+      version = "*",
+      config = function()
+        vim.g.baleia = require("baleia").setup({ })
+
+        -- Command to colorize the current buffer
+        vim.api.nvim_create_user_command("BaleiaColorize", function()
+          vim.g.baleia.once(vim.api.nvim_get_current_buf())
+        end, { bang = true })
+
+        -- Command to show logs 
+        vim.api.nvim_create_user_command("BaleiaLogs", vim.g.baleia.logger.show, { bang = true })
+      end,
+    },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
@@ -121,16 +144,7 @@ require("lazy").setup({
   checker = { enabled = false },
 })
 
--- require('ai').setup({
---   provider = "ollama",
---   ollama = {
---     model = "llama3.1:8b-instruct-q8_0", -- You can start with smaller one like `gemma2` or `llama3.1`
---     --endpoint = "http://192.168.2.47:11434", -- In case you access ollama from another machine
---   }
--- })
-
 require('gen').setup({
---    opts = {
         model = "llama3.1:8b-instruct-q8_0", -- The default model to use.
         quit_map = "q", -- set keymap for close the response window
         retry_map = "<c-r>", -- set keymap to re-send the current prompt
@@ -154,7 +168,6 @@ require('gen').setup({
         -- (context property is optional).
         -- list_models = '<omitted lua function>', -- Retrieves a list of model names
         debug = false -- Prints errors and the command which is run.
---    }
 })
 
 vim.keymap.set({ 'n', 'v' }, '<leader>]', ':Gen<CR>')
@@ -170,24 +183,12 @@ require'lspconfig'.jdtls.setup{}
 --        workspace = "/home/user/.cache/jdtls/workspace",
 --    },
 --}
-require'lspconfig'.fsharp_language_server.setup{}
+--require'lspconfig'.fsharp_language_server.setup{}
 require('gitsigns').setup()
 require('lspconfig').pyright.setup {}
 require('lspconfig').gleam.setup {}
-require('lspconfig').tsserver.setup {
-  -- settings = {
-  --   typescript = {
-  --     preferences = {
-  --       importModuleSpecifier = "relative"
-  --     },
-  --   },
-  -- },
-  -- init_options = {
-  --   preferences = {
-  --     importModuleSpecifierPreference = 'non-relative',
-  --   },
-  -- },
-}
+--require('lspconfig').eslint.setup {}
+require('lspconfig').ts_ls.setup {}
 require('lspconfig').rust_analyzer.setup {
   settings = {
     ['rust-analyzer'] = {},
@@ -197,12 +198,36 @@ require('lspconfig').bufls.setup {}
 --require'lspconfig'.ruby_lsp.setup{}
 --require'lspconfig'.sorbet.setup{}
 require'lspconfig'.html.setup{}
+require'oil'.setup {
+    default_file_explorer = true,
+    view_options = {
+        -- Show files and directories that start with "."
+        show_hidden = true,
+    },
+}
 
 
 vim.lsp.inlay_hint.enable()
+
+--vim.api.nvim_create_autocmd('LspAttach', {
+--    callback = function(ev)
+--        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+--        if client:supports_method('textDocument/completion') then
+--            vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+--        end
+--    end,
+--})
+
+vim.diagnostic.config({ virtual_text = true })
+
+
 
 EOF
 
 TSEnable highlight
 TSEnable incremental_selection
 TSEnable indent
+
+colorscheme tokyonight-night
+"colorscheme default
+colorscheme lunaperche
