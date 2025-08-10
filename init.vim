@@ -10,6 +10,7 @@ set number
 set nowrap
 set shiftwidth=2
 set tabstop=2
+set softtabstop=2
 set expandtab
 "colorscheme torte
 "colorscheme murphy
@@ -107,7 +108,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = {
     "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
+--    "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
     "ii14/lsp-command",
     "nvim-treesitter/nvim-treesitter",
@@ -116,11 +117,21 @@ require("lazy").setup({
     "will133/vim-dirdiff",
     "uguu-org/vim-matrix-screensaver",
     "folke/tokyonight.nvim",
+    "catppuccin/nvim",
+    "rebelot/kanagawa.nvim",
+    "navarasu/onedark.nvim",
+    "rose-pine/neovim",
+    "EdenEast/nightfox.nvim",
+    "shaunsingh/nord.nvim",
+    "nyoom-engineering/oxocarbon.nvim",
+    "AlexvZyl/nordic.nvim",
+    "Mofiqul/dracula.nvim",
 --    "folke/which-key.nvim",
-    "David-Kunz/gen.nvim",
+--    "David-Kunz/gen.nvim",
     "nvim-lua/plenary.nvim",
     "godlygeek/tabular",
     "stevearc/oil.nvim",
+    "dmmulroy/ts-error-translator.nvim",
     {
       "m00qek/baleia.nvim",
       version = "*",
@@ -144,36 +155,36 @@ require("lazy").setup({
   checker = { enabled = false },
 })
 
-require('gen').setup({
-        model = "llama3.1:8b-instruct-q8_0", -- The default model to use.
-        quit_map = "q", -- set keymap for close the response window
-        retry_map = "<c-r>", -- set keymap to re-send the current prompt
-        accept_map = "<c-cr>", -- set keymap to replace the previous selection with the last result
-        host = "localhost", -- The host running the Ollama service.
-        port = "11434", -- The port on which the Ollama service is listening.
-        display_mode = "horizontal-split", -- The display mode. Can be "float" or "split" or "horizontal-split".
-        show_prompt = false, -- Shows the prompt submitted to Ollama.
-        show_model = false, -- Displays which model you are using at the beginning of your chat session.
-        no_auto_close = false, -- Never closes the window automatically.
-        hidden = false, -- Hide the generation window (if true, will implicitly set `prompt.replace = true`), requires Neovim >= 0.10
-        init = function(options) pcall(io.popen, "ollama serve > /dev/null 2>&1 &") end,
-        -- Function to initialize Ollama
-        command = function(options)
-            local body = {model = options.model, stream = true}
-            return "curl --silent --no-buffer -X POST http://" .. options.host .. ":" .. options.port .. "/api/chat -d $body"
-        end,
-        -- The command for the Ollama service. You can use placeholders $prompt, $model and $body (shellescaped).
-        -- This can also be a command string.
-        -- The executed command must return a JSON object with { response, context }
-        -- (context property is optional).
-        -- list_models = '<omitted lua function>', -- Retrieves a list of model names
-        debug = false -- Prints errors and the command which is run.
-})
+--require('gen').setup({
+--        model = "llama3.1:8b-instruct-q8_0", -- The default model to use.
+--        quit_map = "q", -- set keymap for close the response window
+--        retry_map = "<c-r>", -- set keymap to re-send the current prompt
+--        accept_map = "<c-cr>", -- set keymap to replace the previous selection with the last result
+--        host = "localhost", -- The host running the Ollama service.
+--        port = "11434", -- The port on which the Ollama service is listening.
+--        display_mode = "horizontal-split", -- The display mode. Can be "float" or "split" or "horizontal-split".
+--        show_prompt = false, -- Shows the prompt submitted to Ollama.
+--        show_model = false, -- Displays which model you are using at the beginning of your chat session.
+--        no_auto_close = false, -- Never closes the window automatically.
+--        hidden = false, -- Hide the generation window (if true, will implicitly set `prompt.replace = true`), requires Neovim >= 0.10
+--        init = function(options) pcall(io.popen, "ollama serve > /dev/null 2>&1 &") end,
+--        -- Function to initialize Ollama
+--        command = function(options)
+--            local body = {model = options.model, stream = true}
+--            return "curl --silent --no-buffer -X POST http://" .. options.host .. ":" .. options.port .. "/api/chat -d $body"
+--        end,
+--        -- The command for the Ollama service. You can use placeholders $prompt, $model and $body (shellescaped).
+--        -- This can also be a command string.
+--        -- The executed command must return a JSON object with { response, context }
+--        -- (context property is optional).
+--        -- list_models = '<omitted lua function>', -- Retrieves a list of model names
+--        debug = false -- Prints errors and the command which is run.
+--})
 
 vim.keymap.set({ 'n', 'v' }, '<leader>]', ':Gen<CR>')
 
 require("mason").setup()
-require("mason-lspconfig").setup()
+--require("mason-lspconfig").setup()
 require'lspconfig'.omnisharp.setup{}
 require'lspconfig'.jdtls.setup{}
 --require'lspconfig'.jdtls.setup{ 
@@ -194,7 +205,7 @@ require('lspconfig').rust_analyzer.setup {
     ['rust-analyzer'] = {},
   },
 }
-require('lspconfig').bufls.setup {}
+require('lspconfig').buf_ls.setup {}
 --require'lspconfig'.ruby_lsp.setup{}
 --require'lspconfig'.sorbet.setup{}
 require'lspconfig'.html.setup{}
@@ -205,6 +216,7 @@ require'oil'.setup {
         show_hidden = true,
     },
 }
+require("ts-error-translator").setup()
 
 
 vim.lsp.inlay_hint.enable()
@@ -231,3 +243,4 @@ TSEnable indent
 colorscheme tokyonight-night
 "colorscheme default
 colorscheme lunaperche
+colorscheme catppuccin
